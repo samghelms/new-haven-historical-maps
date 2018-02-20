@@ -37,8 +37,7 @@ var addLayer = function(map, source, id) {
             'tileSize': 256
         });
     }
-    console.log("adding: ")
-    console.log(id)
+
     map.addLayer({
         'id': id,
         'type': 'raster',
