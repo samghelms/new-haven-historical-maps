@@ -1,8 +1,4 @@
 
-proj4.defs("EPSG:26915", "+proj=utm +zone=15 +ellps=GRS80 +datum=NAD83 +units=m +no_defs");
-
-var coordConverter = proj4('EPSG:3857','EPSG:26915')
-
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FtZ2hlbG1zIiwiYSI6ImNqNm1qamZ0NDEzbzEycHBkejkwcGd4ZTMifQ.ccWemgAM6or4b6WgxSOtbQ'
 var beforeMap = new mapboxgl.Map({
     container: 'before',
@@ -24,7 +20,6 @@ var map = new mapboxgl.Compare(beforeMap, afterMap, {
 });
 
 afterMap.addControl(new mapboxgl.NavigationControl({showCompass: false}));
-
 
 var database = firebase.database();
 
