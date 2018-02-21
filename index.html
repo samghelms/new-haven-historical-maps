@@ -174,7 +174,7 @@
         var slider = document.createElement('input');
         slider.id='slider', slider.type='range', slider.min='0', slider.max='100';
         slider.step='0', slider.value='100';
-        slider.addEventListener("click", changeInput);
+        slider.addEventListener("input", changeInput);
 
         sliderCtrl.appendChild(label);
         sliderCtrl.appendChild(span);
