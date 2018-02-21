@@ -186,6 +186,8 @@
         var shareMap = document.getElementById('getShareable');
         var getShareableButton = document.createElement('button');
         getShareableButton.innerHTML = 'shareable link to your view';
+        getShareableButton.className = 'btn btn--stripe'
+
         getShareableButton.addEventListener('click', function(event ) {
             var parent = event.srcElement.parentElement
             center = afterMap.getCenter();
