@@ -1,11 +1,11 @@
 var pms = document.location.href;
-var lat = parseFloat(pms.match("lat=([+-]?[0-9]*[.]?[0-9]+)")[1]); 
-var lng = parseFloat(pms.match("lng=([+-]?[0-9]*[.]?[0-9]+)")[1]); // is the number 18
-var zoom = parseFloat(pms.match("zoom=([+-]?[0-9]*[.]?[0-9]+)")[1]);
+var lat = pms.match("lat=([+-]?[0-9]*[.]?[0-9]+)"); 
+var lng = pms.match("lng=([+-]?[0-9]*[.]?[0-9]+)"); // is the number 18
+var zoom = pms.match("zoom=([+-]?[0-9]*[.]?[0-9]+)");
 
-zoom = isNaN(zoom) ? 13 : zoom
-lng = isNaN(lng) ? -72.9279 : lng
-lat = isNaN(lat) ? 41.3083 : lat
+zoom = isNaN(zoom) && zoom.length > 1 ? 13 : parseFloat(zoom[1])
+lng = isNaN(lng) && lng.length > 1 ? -72.9279 : parseFloat(lng[1])
+lat = isNaN(lat) && lat.length > 1 ? 41.3083 : parseFloat(lat[1])
 
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FtZ2hlbG1zIiwiYSI6ImNqNm1qamZ0NDEzbzEycHBkejkwcGd4ZTMifQ.ccWemgAM6or4b6WgxSOtbQ'
