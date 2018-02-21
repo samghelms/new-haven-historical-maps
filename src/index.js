@@ -1,12 +1,16 @@
 
-var params = (new URL(document.location)).searchParams;
-var lat = parseFloat(params.get("lat")); // is the string "Jonathan"
-var lng = parseFloat(params.get("lng")); // is the number 18
-var zoom = parseFloat(params.get("zoom"));
+var pms = document.location.href;
+var lat = parseFloat(pms.match("lat=(\d.)*")); 
+var lng = parseFloat(pms.match("lng=(\d.)*")); // is the number 18
+var zoom = parseFloat(pms.match("zoom=(\d.)*"));
 
 zoom = isNaN(zoom) ? 13 : zoom
 lng = isNaN(lng) ? -72.9279 : lng
 lat = isNaN(lat) ? 41.3083 : lat
+
+var zoom = 13
+var lng = -72.9279
+var lat = 41.3083 
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FtZ2hlbG1zIiwiYSI6ImNqNm1qamZ0NDEzbzEycHBkejkwcGd4ZTMifQ.ccWemgAM6or4b6WgxSOtbQ'
 var beforeMap = new mapboxgl.Map({
@@ -53,13 +57,6 @@ var addLayer = function(map, source, id) {
 afterMap.on('load', function() {
     addLayer(afterMap, dataSource.data, dataSource.id)
 });
-
-afterMap.on('moveend', function () {
-    var center = afterMap.getCenter()
-    var params = "?zoom="+afterMap.getZoom()+"&lat="+center.lat+"&lng="+center.lng
-    window.history.pushState("test", "Title", params);
-
-})
 
 
 
