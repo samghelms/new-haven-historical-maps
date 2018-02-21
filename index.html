@@ -75,33 +75,35 @@
         }
     </script>
     <style>
+        <style>
         .map-overlay {
             font:bold 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
             position: absolute;
-            width: 20%; height: 80%; margin: auto; top: 0; left: 0; bottom: 0;
-            padding-left: 10%;
-            padding-top: 5%;
-
+            top: 0;
+            left: 0;
+            padding: 10px;
         }
 
-        .map-overlay .map-overlay-inner {
+        .map-overlay-inner {
             background-color: #fff;
             box-shadow:0 1px 2px rgba(0, 0, 0, 0.20);
             border-radius: 3px;
-            padding: 5px;
+            padding: 10px;
             margin-bottom: 10px;
+            /*position: relative;*/
+            margin-top: 40%;
+            margin-left: 40%;
+            display: inline-block;
+            width: 160px;
         }
 
         .map-overlay label {
             display: block;
-            margin: 0 0 2px;
+            margin: 0 0 10px;
         }
 
         .map-overlay input {
             background-color: transparent;
-            display: inline-block;
-            width: 100%;
-            height: 10px;
             position: relative;
             margin: 0;
             cursor: ew-resize;
@@ -117,12 +119,6 @@
         <div class = "map-container">
             <div id='before' class='map'></div>
             <div id='after' class='map'></div>
-            <div class='map-overlay top'>
-                <div class='map-overlay-inner'>
-                    <label>Layer opacity: <span id='slider-value'>100%</span></label>
-                    <input id='slider' type='range' min='0' max='100' step='0' value='100' />
-                </div>
-            </div>
         </div>  
         <div class = "thanks">
             <p>Thank you to the Yale University Library for digitizing these maps. Thank you to Mapbox for putting together such a great package.</p>
@@ -151,19 +147,39 @@
             dataSource = {data: baseUrl.replace("{source}", e), id: e}
             addLayer(afterMap, dataSource.data, dataSource.id)
         }
-
-        var slider = document.getElementById('slider');
-        var sliderValue = document.getElementById('slider-value');
-
-        slider.addEventListener('input', function(e) {
+        var changeInput = function(e) {
             // Adjust the layers opacity. layer here is arbitrary - this could
             // be another layer name found in your style or a custom layer
             // added on the fly using `addSource`.
             afterMap.setPaintProperty(dataSource.id, 'raster-opacity', parseInt(e.target.value, 10) / 100);
 
             // Value indicator
+            var sliderValue = document.getElementById('slider-value');
             sliderValue.textContent = e.target.value + '%';
-        });
+        }
+
+        var topLeftCtrl = document.getElementsByClassName('mapboxgl-ctrl-top-left')[0];
+        var sliderCtrl = document.createElement('div');
+        sliderCtrl.className = 'map-overlay-inner mapboxgl-ctrl mapboxgl-ctrl-group';
+
+
+        var label = document.createElement('label');
+        var t = document.createTextNode("Layer opacity: ");
+        label.appendChild(t);
+        var span = document.createElement('span');
+        span.innerHTML = '100%';
+        span.id = 'slider-value';
+        span.className = 'map-overlay';
+        label.appendChild(span);
+        var slider = document.createElement('input');
+        slider.id='slider', slider.type='range', slider.min='0', slider.max='100';
+        slider.step='0', slider.value='100';
+        slider.addEventListener("click", changeInput);
+
+        sliderCtrl.appendChild(label);
+        sliderCtrl.appendChild(span);
+        sliderCtrl.appendChild(slider);
+        topLeftCtrl.appendChild(sliderCtrl);
 
     </script>
 </body>
