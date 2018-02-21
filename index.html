@@ -202,7 +202,13 @@
             a.title = url;
             a.href = url;
             p.appendChild(a);
-            parent.appendChild(p)
+            p.id = 'link-sharing'
+            var old = document.getElementById('link-sharing')
+            if(old)
+                parent.replaceChild(p, old)
+            else {
+                parent.appendChild(p)
+            }
         })
 
         shareMap.appendChild(getShareableButton);
