@@ -120,6 +120,7 @@
             <div id='before' class='map'></div>
             <div id='after' class='map'></div>
         </div>  
+        <div style="text-align: center;" id='getShareable'> </div>
         <div class = "thanks">
             <p>Thank you to the Yale University Library for digitizing these maps. Thank you to Mapbox for putting together such a great package.</p>
             <p>Created by Sam Helms (samuel.helms@yale.edu)</p>
@@ -180,6 +181,31 @@
         sliderCtrl.appendChild(span);
         sliderCtrl.appendChild(slider);
         topLeftCtrl.appendChild(sliderCtrl);
+
+
+        var shareMap = document.getElementById('getShareable');
+        var getShareableButton = document.createElement('button');
+        getShareableButton.innerHTML = 'shareable link to your view';
+        getShareableButton.addEventListener('click', function(event ) {
+            var parent = event.srcElement.parentElement
+            center = afterMap.getCenter();
+            var newLat = center.lat;
+            var newLng = center.lng;
+            var newZoom = afterMap.getZoom();
+            var params = "?zoom="+newZoom+"&lat="+newLat+"&lng="+newLng;
+            var url = window.location.pathname+params
+
+            var p = document.createElement('p')
+            var a = document.createElement('a');
+            var linkText = document.createTextNode(url);
+            a.appendChild(linkText);
+            a.title = url;
+            a.href = url;
+            p.appendChild(a);
+            parent.appendChild(p)
+        })
+
+        shareMap.appendChild(getShareableButton);
 
     </script>
 </body>

@@ -1,16 +1,12 @@
-
 var pms = document.location.href;
-var lat = parseFloat(pms.match("lat=(\d.)*")); 
-var lng = parseFloat(pms.match("lng=(\d.)*")); // is the number 18
-var zoom = parseFloat(pms.match("zoom=(\d.)*"));
+var lat = parseFloat(pms.match("lat=([+-]?[0-9]*[.]?[0-9]+)")[1]); 
+var lng = parseFloat(pms.match("lng=([+-]?[0-9]*[.]?[0-9]+)")[1]); // is the number 18
+var zoom = parseFloat(pms.match("zoom=([+-]?[0-9]*[.]?[0-9]+)")[1]);
 
 zoom = isNaN(zoom) ? 13 : zoom
 lng = isNaN(lng) ? -72.9279 : lng
 lat = isNaN(lat) ? 41.3083 : lat
 
-var zoom = 13
-var lng = -72.9279
-var lat = 41.3083 
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FtZ2hlbG1zIiwiYSI6ImNqNm1qamZ0NDEzbzEycHBkejkwcGd4ZTMifQ.ccWemgAM6or4b6WgxSOtbQ'
 var beforeMap = new mapboxgl.Map({
@@ -36,7 +32,6 @@ afterMap.addControl(new mapboxgl.NavigationControl({showCompass: false}));
 
 var database = firebase.database();
 
-
 var addLayer = function(map, source, id) { 
     if(map.getSource(id) === undefined) {
         map.addSource(id, {
@@ -57,6 +52,3 @@ var addLayer = function(map, source, id) {
 afterMap.on('load', function() {
     addLayer(afterMap, dataSource.data, dataSource.id)
 });
-
-
-
