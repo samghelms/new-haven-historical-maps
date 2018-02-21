@@ -3,9 +3,9 @@ var lat = pms.match("lat=([+-]?[0-9]*[.]?[0-9]+)");
 var lng = pms.match("lng=([+-]?[0-9]*[.]?[0-9]+)"); // is the number 18
 var zoom = pms.match("zoom=([+-]?[0-9]*[.]?[0-9]+)");
 
-zoom = isNaN(zoom) && zoom.length > 1 ? 13 : parseFloat(zoom[1])
-lng = isNaN(lng) && lng.length > 1 ? -72.9279 : parseFloat(lng[1])
-lat = isNaN(lat) && lat.length > 1 ? 41.3083 : parseFloat(lat[1])
+zoom = !zoom || zoom.length < 2 ? 13 : parseFloat(zoom[1])
+lng = !lng || lng.length < 2 ? -72.9279 : parseFloat(lng[1])
+lat = !lat || lat.length < 2 ? 41.3083 : parseFloat(lat[1])
 
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FtZ2hlbG1zIiwiYSI6ImNqNm1qamZ0NDEzbzEycHBkejkwcGd4ZTMifQ.ccWemgAM6or4b6WgxSOtbQ'
